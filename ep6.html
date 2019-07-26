@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title></title>
+</head>
+<body>
+
+	<div id="root">
+		
+		<h1>All Tasks</h1>
+		<ul>
+			<li v-for="task in tasks">
+				{{ task.description }} 
+				<button @click='completeTrue(task)'>Set Complete</button> 
+				<button @click='completeFalse(task)'>Set Incomplete</button>
+			</li>
+		</ul>
+
+		<h1>Completed Tasks</h1>
+		<ul>
+			<li v-for="task in completedTasks" v-text="task.description"></li>
+		</ul>
+
+		<h1>Incomplete Tasks</h1>
+		<ul>
+			<li v-for="task in incompleteTasks" v-text="task.description"></li>
+		</ul>
+
+	</div>
+
+	<script src="https://unpkg.com/vue@2.6.10/dist/vue.js"></script>
+	
+	<script>
+
+		var app = new Vue({
+			el: '#root',
+			data: {
+				message: 'Hello World',
+				tasks: [
+					{ description: 'Go to the store', completed: true },
+					{ description: 'Finish screencast', completed: false },
+					{ description: 'Make donation', completed: false },
+					{ description: 'Clear inbox', completed: false },
+					{ description: 'Make dinner', completed: false },
+					{ description: 'Clean room', completed: true }
+				]
+			},
+			methods: {
+				completeTrue(task) {
+					task.completed = true;
+				},
+				completeFalse(task) {
+					task.completed = false;
+				}
+			},
+			computed: {
+				incompleteTasks() {
+					return this.tasks.filter(task => !task.completed);
+				},
+				completedTasks() {
+					return this.tasks.filter(task => task.completed);
+				}
+			},
+			mounted() {
+				
+			}
+		})
+
+	</script>
+</body>
+</html>
